@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+  - MIT License
+  ~ Copyright (c) 2016-2018 by Oleksii V. KHALIKOV, PE
+  -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Operr Technologies, Inc</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
+    <script>
+      (function () {
+        'use strict';
+
+        angular.module('ToDo', []).controller('ToDoCtrl', ['$rootScope', function ($rootScope){
+          var vm = this;
+          vm.list = [];
+          vm.task = '';
+          vm.selectedAll = false;
+
+          vm.add = function () {
+            console.log(vm.task);
+            vm.list.push({
+              delete: false,
+              description: vm.task
+            });
+            vm.task = '';
+          };
+
+          vm.selectAll = function(){
+            angular.forEach(vm.list, function (item) {
+              item.delete = vm.selectedAll;
+            })
+          };
+
+          vm.delete = function () {
+            var temp = [];
+            angular.forEach(vm.list, function (item) {
+              if(!item.delete) temp.push(item);
+            });
+            vm.list = temp;
+            vm.selectedAll = false;
+          }
+
+        }])
+      })();
+    </script>
+
+</head>
+<body ng-app="ToDo">
+<div ng-controller="ToDoCtrl as vm">
+    <input type="text" ng-model="vm.task"/>
+    <input type="button" value="Add" ng-click="vm.add()">
+
+    <div ng-if="vm.list.length > 0">
+        <input type="checkbox" ng-change="vm.selectAll()" ng-model="vm.selectedAll">
+        <input type="button" value="Delete" ng-click="vm.delete()">
+    </div>
+
+    <ul id="task-list">
+        <li ng-repeat="task in vm.list">
+            <input type="checkbox" ng-model="task.delete">
+            <span>{{task.description}}</span>
+        </li>
+    </ul>
+
+</div>
+
+</body>
+</html>
