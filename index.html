@@ -9,6 +9,9 @@
     <meta charset="UTF-8">
     <title>Operr Technologies, Inc</title>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
     <script>
@@ -22,7 +25,6 @@
           vm.selectedAll = false;
 
           vm.add = function () {
-            console.log(vm.task);
             vm.list.push({
               delete: false,
               description: vm.task
@@ -51,21 +53,29 @@
 
 </head>
 <body ng-app="ToDo">
-<div ng-controller="ToDoCtrl as vm">
-    <input type="text" ng-model="vm.task"/>
-    <input type="button" value="Add" ng-click="vm.add()">
+<div ng-controller="ToDoCtrl as vm" class="container">
+    <div class="form-group" style="margin-top: 20px; margin-bottom: 10px">
+        <input class="form-control" type="text" ng-model="vm.task" style="padding: 10px" placeholder="Task descriprion"/>
 
-    <div ng-if="vm.list.length > 0">
-        <input type="checkbox" ng-change="vm.selectAll()" ng-model="vm.selectedAll">
-        <input type="button" value="Delete" ng-click="vm.delete()">
+        <div>
+            <input class="btn btn-success" type="button" value="Add" ng-click="vm.add()" style="float: right; margin: 20px; width: 300px">
+
+            <div ng-if="vm.list.length > 0" style="float: left; margin: 20px;">
+                <input class="control" type="checkbox" ng-change="vm.selectAll()" ng-model="vm.selectedAll" style="float: left; margin-right: 25px">
+                <input class="btn btn-danger" type="button" value="Delete" ng-click="vm.delete()" style="float: right; width: 300px">
+            </div>
+        </div>
+
     </div>
-
-    <ul id="task-list">
-        <li ng-repeat="task in vm.list">
-            <input type="checkbox" ng-model="task.delete">
-            <span>{{task.description}}</span>
-        </li>
-    </ul>
+    <div style="margin-top: 100px">
+        <h3 ng-if="vm.list.length > 0">Task list</h3>
+        <ul class="list-group">
+            <li ng-repeat="task in vm.list" class="list-group-item">
+                <input type="checkbox" ng-model="task.delete">
+                <span>{{task.description}}</span>
+            </li>
+        </ul>
+    </div>
 
 </div>
 
