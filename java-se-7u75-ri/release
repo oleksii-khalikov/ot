@@ -1,0 +1,5 @@
+JAVA_VERSION="1.7.0"
+OS_NAME="Windows"
+OS_VERSION="5.1"
+OS_ARCH="i586"
+SOURCE=" corba:f3d39b942095 hotspot:0c7d7c067c46 jaxp:999eb9cbf840 jaxws:4d068ffb0b54 jdk:3778e2621fc9 langtools:059a87205fda"
